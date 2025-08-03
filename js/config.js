@@ -1,20 +1,37 @@
-// Google Sheets Configuration
+// Google Sheets Configuration for DLLE Committee Platform
 const GOOGLE_SHEETS_CONFIG = {
     // You'll need to create a Google Apps Script project
     // and deploy it as a web app to get this URL
-    scriptUrl: 'https://script.google.com/macros/s/AKfycbxFaQJv9-FpCnMX_o6AT37TsUSD8WDRFzWpgGhDmDs_884jP-gy6OO2g2YbBGUDgqm_WA/exec',
+    scriptUrl: 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE',
     
     // Google Sheets ID (you'll get this when you create the spreadsheet)
-    spreadsheetId: '1hiTeBU7GeVfVAO1gQHFDiGkZouyEaizj1nnIGd-as2E',
+    spreadsheetId: 'YOUR_SPREADSHEET_ID_HERE',
+    
+    // Google Drive Configuration
+    drive: {
+        mainFolderId: '10SbkAoQz5gYg1QWR5Zb3OCFMzZTpY2Mf',
+        profilePhotosFolderId: '10SbkAoQz5gYg1QWR5Zb3OCFMzZTpY2Mf', // Will be updated when subfolders are created
+        proofPhotosFolderId: '10SbkAoQz5gYg1QWR5Zb3OCFMzZTpY2Mf', // Will be updated when subfolders are created
+        eventPhotosFolderId: '10SbkAoQz5gYg1QWR5Zb3OCFMzZTpY2Mf', // Will be updated when subfolders are created
+        documentsFolderId: '10SbkAoQz5gYg1QWR5Zb3OCFMzZTpY2Mf'   // Will be updated when subfolders are created
+    },
     
     // Sheet names for different data
     sheets: {
-        users: 'Users',
-        activities: 'Activities', 
-        attendance: 'Attendance',
-        signupRequests: 'SignupRequests'
+        signupRequests: 'SignupRequests',
+        students: 'Students',
+        committeeAndStaff: 'CommitteeAndStaff',
+        clockEntries: 'ClockEntries',
+        activities: 'Activities',
+        approvals: 'Approvals',
+        photos: 'Photos'
     }
 };
 
 // Initialize Google Sheets API
-window.GOOGLE_SHEETS_CONFIG = GOOGLE_SHEETS_CONFIG; 
+window.GOOGLE_SHEETS_CONFIG = GOOGLE_SHEETS_CONFIG;
+
+// Export for use in other modules
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = GOOGLE_SHEETS_CONFIG;
+} 
