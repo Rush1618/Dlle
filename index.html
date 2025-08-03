@@ -68,7 +68,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="signupEmail">Email</label>
+                                <label for="signupEmail">Email Address</label>
                                 <input type="email" id="signupEmail" required>
                             </div>
                         </div>
@@ -102,8 +102,42 @@
                                 <select id="signupRole" required>
                                     <option value="">Select Role</option>
                                     <option value="student">Student</option>
+                                    <option value="committee">Committee Member</option>
+                                    <option value="staff">Staff</option>
                                 </select>
                             </div>
+                        </div>
+                        
+                        <div class="form-row" id="studentManagerRow" style="display: none;">
+                            <div class="form-group">
+                                <label for="signupStudentManager">Assigned Student Manager</label>
+                                <select id="signupStudentManager">
+                                    <option value="">Select Student Manager</option>
+                                    <option value="manager1">Student Manager 1</option>
+                                    <option value="manager2">Student Manager 2</option>
+                                    <option value="manager3">Student Manager 3</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="signupCommitteeRole">Committee Role</label>
+                                <select id="signupCommitteeRole" style="display: none;">
+                                    <option value="">Select Committee Role</option>
+                                    <option value="student_manager">Student Manager</option>
+                                    <option value="technical_head">Technical Head</option>
+                                    <option value="deputy_technical_head">Deputy Technical Head</option>
+                                    <option value="technical_team">Technical Team Member</option>
+                                    <option value="event_manager_head">Event Manager Head</option>
+                                    <option value="deputy_event_manager">Deputy Event Manager</option>
+                                    <option value="event_coordinator">Event Coordinator</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signupProfilePhoto">Profile Picture (Optional)</label>
+                            <input type="file" id="signupProfilePhoto" accept="image/*">
+                            <small>Upload a profile picture. Will be stored in Google Drive.</small>
                         </div>
                         
                         <button type="submit" class="btn btn-primary">
@@ -158,6 +192,7 @@
                                     <p id="modalUserRole">Role</p>
                                     <p id="modalUserClass">Class</p>
                                     <p id="modalUserHours">Total Approved Hours: 0</p>
+                                    <p id="modalUserManager">Student Manager: N/A</p>
                                 </div>
                             </div>
                         </div>
@@ -168,7 +203,7 @@
                 <div id="staffDashboard" class="dashboard-section">
                     <div class="dashboard-header">
                         <h1>Staff Dashboard</h1>
-                        <p>Manage students, activities, and approvals</p>
+                        <p>Manage users, activities, and approvals</p>
                     </div>
                     
                     <div class="dashboard-tabs">
@@ -216,14 +251,9 @@
                                     <select id="addUserRole" required>
                                         <option value="">Select Role</option>
                                         <option value="student">Student</option>
-                                        <option value="student_manager">Student Manager</option>
-                                        <option value="technical_head">Technical Head</option>
-                                        <option value="deputy_technical_head">Deputy Technical Head</option>
-                                        <option value="technical_team">Technical Team Member</option>
-                                        <option value="event_manager_head">Event Manager Head</option>
-                                        <option value="deputy_event_manager">Deputy Event Manager</option>
-                                        <option value="event_coordinator">Event Coordinator</option>
-                                        <option value="staff">Staff Member</option>
+                                        <option value="committee">Committee Member</option>
+                                        <option value="staff">Staff</option>
+                                        <option value="admin">Admin</option>
                                     </select>
                                 </div>
                                 
@@ -237,6 +267,37 @@
                                         <option value="BE">Final Year</option>
                                     </select>
                                 </div>
+                            </div>
+                            
+                            <div class="form-row" id="addUserManagerRow" style="display: none;">
+                                <div class="form-group">
+                                    <label for="addUserStudentManager">Assigned Student Manager</label>
+                                    <select id="addUserStudentManager">
+                                        <option value="">Select Student Manager</option>
+                                        <option value="manager1">Student Manager 1</option>
+                                        <option value="manager2">Student Manager 2</option>
+                                        <option value="manager3">Student Manager 3</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="addUserCommitteeRole">Committee Role</label>
+                                    <select id="addUserCommitteeRole" style="display: none;">
+                                        <option value="">Select Committee Role</option>
+                                        <option value="student_manager">Student Manager</option>
+                                        <option value="technical_head">Technical Head</option>
+                                        <option value="deputy_technical_head">Deputy Technical Head</option>
+                                        <option value="technical_team">Technical Team Member</option>
+                                        <option value="event_manager_head">Event Manager Head</option>
+                                        <option value="deputy_event_manager">Deputy Event Manager</option>
+                                        <option value="event_coordinator">Event Coordinator</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="addUserProfilePhoto">Profile Picture (Optional)</label>
+                                <input type="file" id="addUserProfilePhoto" accept="image/*">
                             </div>
                             
                             <div class="form-group">
@@ -268,6 +329,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Class</th>
+                                        <th>Student Manager</th>
                                         <th>Total Hours</th>
                                         <th>Actions</th>
                                     </tr>
@@ -299,6 +361,7 @@
                                         <th>Clock Out</th>
                                         <th>Total Time</th>
                                         <th>Status</th>
+                                        <th>Proof Photo</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -325,8 +388,7 @@
                                     <tr>
                                         <th>Activity Name</th>
                                         <th>Description</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
+                                        <th>Date</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -392,6 +454,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Class</th>
+                                        <th>Student Manager</th>
                                         <th>Total Hours</th>
                                         <th>Actions</th>
                                     </tr>
@@ -423,6 +486,7 @@
                                         <th>Clock Out</th>
                                         <th>Total Time</th>
                                         <th>Status</th>
+                                        <th>Proof Photo</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -445,8 +509,7 @@
                                     <tr>
                                         <th>Activity Name</th>
                                         <th>Description</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
+                                        <th>Date</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -483,6 +546,16 @@
                             <div class="stat-info">
                                 <h3 id="totalActivities">0</h3>
                                 <p>Total Activities</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="studentManager">N/A</h3>
+                                <p>Student Manager</p>
                             </div>
                         </div>
                     </div>
@@ -530,6 +603,7 @@
                                         <th>Clock Out</th>
                                         <th>Duration</th>
                                         <th>Status</th>
+                                        <th>Proof Photo</th>
                                     </tr>
                                 </thead>
                                 <tbody id="studentActivityTableBody">
@@ -560,25 +634,44 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="activityDescription">Description</label>
-                        <textarea id="activityDescription" rows="3"></textarea>
+                        <label for="activityDate">Date</label>
+                        <input type="date" id="activityDate" required>
                     </div>
                     
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="activityStartDate">Start Date</label>
-                            <input type="datetime-local" id="activityStartDate" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="activityEndDate">End Date</label>
-                            <input type="datetime-local" id="activityEndDate" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="activityDescription">Description</label>
+                        <textarea id="activityDescription" rows="3"></textarea>
                     </div>
                     
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-plus"></i>
                         Add Activity
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clock Out Modal with Proof Photo -->
+    <div id="clockOutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Clock Out</h2>
+                <button class="close-btn" id="closeClockOutModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="clockOutForm">
+                    <div class="form-group">
+                        <label for="proofPhoto">Proof Photo (Optional)</label>
+                        <input type="file" id="proofPhoto" accept="image/*">
+                        <small>Upload a photo from the event as proof of participation</small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-stop"></i>
+                        Clock Out
                     </button>
                 </form>
             </div>
@@ -601,6 +694,7 @@
                         <h3 id="modalStudentName">Student Name</h3>
                         <p id="modalStudentEmail">email@example.com</p>
                         <p id="modalStudentClass">Class</p>
+                        <p id="modalStudentManager">Student Manager: N/A</p>
                         <p id="modalStudentHours">Total Approved Hours: 0</p>
                     </div>
                 </div>
@@ -617,6 +711,7 @@
                                     <th>Clock Out</th>
                                     <th>Duration</th>
                                     <th>Status</th>
+                                    <th>Proof Photo</th>
                                 </tr>
                             </thead>
                             <tbody id="studentHistoryTableBody">

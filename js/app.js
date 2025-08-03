@@ -54,11 +54,10 @@ class DLLEApp {
         const formData = {
             name: document.getElementById('signupName').value,
             email: document.getElementById('signupEmail').value,
-            username: document.getElementById('signupUsername').value,
             password: document.getElementById('signupPassword').value,
             class: document.getElementById('signupClass').value,
             role: document.getElementById('signupRole').value,
-            photoFile: document.getElementById('signupPhoto').files[0] || null
+            studentManager: document.getElementById('signupStudentManager').value
         };
 
         await authManager.signup(formData);
@@ -68,11 +67,10 @@ class DLLEApp {
         const formData = {
             name: document.getElementById('addUserName').value,
             email: document.getElementById('addUserEmail').value,
-            username: document.getElementById('addUserUsername').value,
             password: document.getElementById('addUserPassword').value,
             role: document.getElementById('addUserRole').value,
             class: document.getElementById('addUserClass').value,
-            photoFile: document.getElementById('addUserPhoto').files[0] || null,
+            studentManager: document.getElementById('addUserStudentManager').value,
             existingHours: parseFloat(document.getElementById('addUserHours').value) || 0
         };
 
