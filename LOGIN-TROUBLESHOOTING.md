@@ -53,6 +53,7 @@ id | name | email | username | password | class | role | committeeRole | student
 **Solution**:
 1. **Create a test admin user**:
    - Go to your Google Sheets
+   
    - Add a row to `CommitteeAndStaff` sheet:
    ```
    [GENERATE_ID] | Admin User | admin@college.edu | admin | password123 | BE | staff | | | | 0 | active | [CURRENT_DATE]

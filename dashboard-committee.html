@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLLE - Committee Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1><i class="fas fa-graduation-cap"></i> DLLE</h1>
+                <p>Committee Dashboard</p>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-info">
+                    <img id="userProfileImg" src="assets/default-avatar.png" alt="Profile" class="profile-img">
+                    <span id="userName">Loading...</span>
+                    <button id="userProfileBtn" class="btn btn-secondary">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button id="logoutBtn" class="btn btn-danger">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Dashboard Tabs -->
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" data-tab="committeeStudentList">Student List</button>
+                <button class="tab-btn" data-tab="committeeApprovals">Approvals</button>
+                <button class="tab-btn" data-tab="committeeActivities">Activities</button>
+            </div>
+            
+            <!-- Committee Student List Tab -->
+            <div id="committeeStudentList" class="tab-content active">
+                <div class="section-header">
+                    <h2>Student List</h2>
+                    <div class="search-box">
+                        <input type="text" id="committeeStudentSearch" placeholder="Search students...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="committeeStudentTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Class</th>
+                                <th>Student Manager</th>
+                                <th>Total Hours</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="committeeStudentTableBody">
+                            <!-- Student data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Committee Approvals Tab -->
+            <div id="committeeApprovals" class="tab-content">
+                <div class="section-header">
+                    <h2>Activity-Based Approval Panel</h2>
+                    <div class="activity-selector">
+                        <select id="committeeApprovalActivitySelect">
+                            <option value="">Select Activity</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="committeeApprovalTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Clock In</th>
+                                <th>Clock Out</th>
+                                <th>Total Time</th>
+                                <th>Status</th>
+                                <th>Proof Photo</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="committeeApprovalTableBody">
+                            <!-- Approval data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Committee Activities Tab -->
+            <div id="committeeActivities" class="tab-content">
+                <div class="section-header">
+                    <h2>Activity Management</h2>
+                    <button class="btn btn-primary" id="addActivityBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Activity
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table id="committeeActivityTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Activity Name</th>
+                                <th>Description</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="committeeActivityTableBody">
+                            <!-- Activity data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Activity Modal -->
+    <div id="addActivityModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Activity</h3>
+                <span class="close" onclick="app.closeModal('addActivityModal')">&times;</span>
+            </div>
+            <form id="addActivityForm">
+                <div class="form-group">
+                    <label for="activityName">Activity Name</label>
+                    <input type="text" id="activityName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="activityDescription">Description</label>
+                    <textarea id="activityDescription" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="activityStartDate">Start Date</label>
+                        <input type="date" id="activityStartDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="activityEndDate">End Date</label>
+                        <input type="date" id="activityEndDate" required>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="app.closeModal('addActivityModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Activity</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>User Profile</h3>
+                <span class="close" onclick="app.closeModal('profileModal')">&times;</span>
+            </div>
+            <div class="profile-info">
+                <img id="profileModalImg" src="assets/default-avatar.png" alt="Profile" class="profile-img-large">
+                <h4 id="profileModalName">Loading...</h4>
+                <p id="profileModalEmail">Loading...</p>
+                <p id="profileModalRole">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message container -->
+    <div id="messageContainer" class="message-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in and has committee role
+            const savedUser = localStorage.getItem('dlle_user');
+            if (!savedUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const user = JSON.parse(savedUser);
+                if (user.role !== 'committee') {
+                    // Redirect to appropriate dashboard
+                    if (user.role === 'staff' || user.role === 'admin') {
+                        window.location.href = 'dashboard-staff.html';
+                    } else {
+                        window.location.href = 'dashboard-student.html';
+                    }
+                    return;
+                }
+
+                // Initialize dashboard
+                authManager.updateUserInfo();
+                dashboardManager.switchTab('committeeStudentList');
+                
+                // Load initial data
+                dashboardManager.loadTabContent('committeeStudentList');
+                
+            } catch (error) {
+                console.error('Session parse error:', error);
+                localStorage.removeItem('dlle_user');
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Override logout to redirect to login page
+        const originalLogout = authManager.logout;
+        authManager.logout = function() {
+            originalLogout.call(this);
+            window.location.href = 'login.html';
+        };
+    </script>
+</body>
+</html> 

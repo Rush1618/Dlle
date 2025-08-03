@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLLE - Sign Up</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-container">
+            <div class="signup-header">
+                <h1><i class="fas fa-graduation-cap"></i> DLLE</h1>
+                <p>Digital Learning & Leadership Experience</p>
+            </div>
+
+            <div class="signup-form">
+                <h2>Create Account</h2>
+                <p>Join the DLLE program</p>
+
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" name="password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupClass">Class</label>
+                        <select id="signupClass" name="class" required>
+                            <option value="">Select Class</option>
+                            <option value="8A">8A</option>
+                            <option value="8B">8B</option>
+                            <option value="8C">8C</option>
+                            <option value="8D">8D</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupRole">Role</label>
+                        <select id="signupRole" name="role" required>
+                            <option value="">Select Role</option>
+                            <option value="student">Student</option>
+                            <option value="staff">Staff</option>
+                            <option value="committee">Committee</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupStudentManager">Student Manager (if applicable)</label>
+                        <input type="text" id="signupStudentManager" name="studentManager">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+
+                <div class="signup-footer">
+                    <p>Already have an account? <a href="login.html" class="link">Sign in here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message container -->
+    <div id="messageContainer" class="message-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            const savedUser = localStorage.getItem('dlle_user');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    // Redirect to appropriate dashboard
+                    if (user.role === 'staff' || user.role === 'admin') {
+                        window.location.href = 'dashboard-staff.html';
+                    } else if (user.role === 'committee') {
+                        window.location.href = 'dashboard-committee.html';
+                    } else {
+                        window.location.href = 'dashboard-student.html';
+                    }
+                } catch (error) {
+                    console.error('Session parse error:', error);
+                    localStorage.removeItem('dlle_user');
+                }
+            }
+
+            // Setup signup form
+            const signupForm = document.getElementById('signupForm');
+            if (signupForm) {
+                signupForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const formData = {
+                        name: document.getElementById('signupName').value,
+                        email: document.getElementById('signupEmail').value,
+                        password: document.getElementById('signupPassword').value,
+                        class: document.getElementById('signupClass').value,
+                        role: document.getElementById('signupRole').value,
+                        studentManager: document.getElementById('signupStudentManager').value
+                    };
+                    
+                    try {
+                        await authManager.signup(formData);
+                        // Show success message and redirect to login
+                        authManager.showMessage('Account created successfully! Please wait for approval.', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                    } catch (error) {
+                        console.error('Signup error:', error);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

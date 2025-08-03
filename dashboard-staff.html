@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLLE - Staff Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1><i class="fas fa-graduation-cap"></i> DLLE</h1>
+                <p>Staff Dashboard</p>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-info">
+                    <img id="userProfileImg" src="assets/default-avatar.png" alt="Profile" class="profile-img">
+                    <span id="userName">Loading...</span>
+                    <button id="userProfileBtn" class="btn btn-secondary">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button id="logoutBtn" class="btn btn-danger">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Dashboard Tabs -->
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" data-tab="manageUsers">Manage Users</button>
+                <button class="tab-btn" data-tab="studentList">Student List</button>
+                <button class="tab-btn" data-tab="approvals">Approvals</button>
+                <button class="tab-btn" data-tab="activities">Activities</button>
+                <button class="tab-btn" data-tab="reports">Reports</button>
+            </div>
+            
+            <!-- Manage Users Tab -->
+            <div id="manageUsers" class="tab-content active">
+                <div class="section-header">
+                    <h2>Add New User</h2>
+                </div>
+                
+                <form id="addUserForm" class="add-user-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="addUserName">Full Name</label>
+                            <input type="text" id="addUserName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="addUserEmail">Email</label>
+                            <input type="email" id="addUserEmail" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="addUserPassword">Password</label>
+                            <input type="password" id="addUserPassword" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="addUserRole">Role</label>
+                            <select id="addUserRole" required>
+                                <option value="">Select Role</option>
+                                <option value="student">Student</option>
+                                <option value="committee">Committee Member</option>
+                                <option value="staff">Staff</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="addUserClass">Class</label>
+                            <select id="addUserClass">
+                                <option value="">Select Class</option>
+                                <option value="8A">8A</option>
+                                <option value="8B">8B</option>
+                                <option value="8C">8C</option>
+                                <option value="8D">8D</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="addUserStudentManager">Student Manager (if applicable)</label>
+                            <input type="text" id="addUserStudentManager">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addUserHours">Existing Hours (Optional)</label>
+                        <input type="number" id="addUserHours" min="0" step="0.5">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Add User
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Student List Tab -->
+            <div id="studentList" class="tab-content">
+                <div class="section-header">
+                    <h2>Student List</h2>
+                    <div class="search-box">
+                        <input type="text" id="studentSearch" placeholder="Search students...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="studentTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Class</th>
+                                <th>Student Manager</th>
+                                <th>Total Hours</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody">
+                            <!-- Student data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Approvals Tab -->
+            <div id="approvals" class="tab-content">
+                <div class="section-header">
+                    <h2>Activity-Based Approval Panel</h2>
+                    <div class="activity-selector">
+                        <select id="approvalActivitySelect">
+                            <option value="">Select Activity</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="approvalTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Clock In</th>
+                                <th>Clock Out</th>
+                                <th>Total Time</th>
+                                <th>Status</th>
+                                <th>Proof Photo</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="approvalTableBody">
+                            <!-- Approval data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Activities Tab -->
+            <div id="activities" class="tab-content">
+                <div class="section-header">
+                    <h2>Activity Management</h2>
+                    <button class="btn btn-primary" id="addActivityBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Activity
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table id="activityTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Activity Name</th>
+                                <th>Description</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityTableBody">
+                            <!-- Activity data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Reports Tab -->
+            <div id="reports" class="tab-content">
+                <div class="section-header">
+                    <h2>Excel Export</h2>
+                    <button class="btn btn-success" id="exportExcelBtn">
+                        <i class="fas fa-file-excel"></i>
+                        Export to Excel
+                    </button>
+                </div>
+                
+                <div class="export-options">
+                    <div class="form-group">
+                        <label for="exportClass">Filter by Class</label>
+                        <select id="exportClass">
+                            <option value="">All Classes</option>
+                            <option value="8A">8A</option>
+                            <option value="8B">8B</option>
+                            <option value="8C">8C</option>
+                            <option value="8D">8D</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Activity Modal -->
+    <div id="addActivityModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Activity</h3>
+                <span class="close" onclick="app.closeModal('addActivityModal')">&times;</span>
+            </div>
+            <form id="addActivityForm">
+                <div class="form-group">
+                    <label for="activityName">Activity Name</label>
+                    <input type="text" id="activityName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="activityDescription">Description</label>
+                    <textarea id="activityDescription" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="activityStartDate">Start Date</label>
+                        <input type="date" id="activityStartDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="activityEndDate">End Date</label>
+                        <input type="date" id="activityEndDate" required>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="app.closeModal('addActivityModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Activity</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>User Profile</h3>
+                <span class="close" onclick="app.closeModal('profileModal')">&times;</span>
+            </div>
+            <div class="profile-info">
+                <img id="profileModalImg" src="assets/default-avatar.png" alt="Profile" class="profile-img-large">
+                <h4 id="profileModalName">Loading...</h4>
+                <p id="profileModalEmail">Loading...</p>
+                <p id="profileModalRole">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message container -->
+    <div id="messageContainer" class="message-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in and has staff/admin role
+            const savedUser = localStorage.getItem('dlle_user');
+            if (!savedUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const user = JSON.parse(savedUser);
+                if (user.role !== 'staff' && user.role !== 'admin') {
+                    // Redirect to appropriate dashboard
+                    if (user.role === 'committee') {
+                        window.location.href = 'dashboard-committee.html';
+                    } else {
+                        window.location.href = 'dashboard-student.html';
+                    }
+                    return;
+                }
+
+                // Initialize dashboard
+                authManager.updateUserInfo();
+                dashboardManager.switchTab('manageUsers');
+                
+                // Load initial data
+                dashboardManager.loadTabContent('manageUsers');
+                
+            } catch (error) {
+                console.error('Session parse error:', error);
+                localStorage.removeItem('dlle_user');
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Override logout to redirect to login page
+        const originalLogout = authManager.logout;
+        authManager.logout = function() {
+            originalLogout.call(this);
+            window.location.href = 'login.html';
+        };
+    </script>
+</body>
+</html> 
