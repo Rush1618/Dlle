@@ -2,7 +2,7 @@
 const GOOGLE_SHEETS_CONFIG = {
     // You'll need to create a Google Apps Script project
     // and deploy it as a web app to get this URL
-    scriptUrl: 'https://script.google.com/macros/s/AKfycbwYptZbeZ0E99dY3ekif8kUA-WRqqKwrYxzv60WC0OOARHb2pslLHjuK7PB6hGA_LmjuQ/exec',
+    scriptUrl: 'https://script.google.com/macros/s/AKfycbz6uePXfU9viTASQApNWeLDUBUGen1CGGXDHKpyWf_elUsY6-H8eVEhzUQiFlI3yckcRw/exec',
 
     
     // Google Sheets ID (you'll get this when you create the spreadsheet)
